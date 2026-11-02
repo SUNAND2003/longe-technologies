@@ -45,6 +45,7 @@ const PHONE = "+91 7558 916 777";
 const EMAIL = "longetechnologies@outlook.com";
 const ADDRESS = "Door No: 35/2458/D Kanakassery Building, Near Lulu Mall, Mini Bypass Rd, Mankave, Kozhikode, Kerala 673007";
 const WHATSAPP = "https://wa.me/917558916777?text=" + encodeURIComponent("Hi Longe Technologies, I need help with my laptop / computer.");
+const INSTAGRAM = "https://www.instagram.com/longetechnologies?obrf=MXNxdmFnd3k5NXlsdQ%3D%3D&utm_source=";
 
 const BRANCHES = [
   {
@@ -582,7 +583,7 @@ function Hero() {
                 ))}
               </div>
               <span className="font-bold text-navy ml-1">4.9 / 5</span>
-              <span className="text-muted-foreground">(15,000+ repaired)</span>
+              <span className="text-muted-foreground">(1,000+ repaired)</span>
             </div>
             <span className="hidden xs:inline text-muted-foreground/60">•</span>
             <span className="inline-flex items-center gap-1.5 text-navy/80">
@@ -641,8 +642,8 @@ function Hero() {
 
 function About() {
   const stats = [
-    { n: 10, s: "+", l: "Years Experience" },
-    { n: 15000, s: "+", l: "Devices Repaired" },
+    { n: 3, s: "+", l: "Years Experience" },
+    { n: 1000, s: "+", l: "Devices Repaired" },
     { n: 98, s: "%", l: "Happy Customers" },
     { n: 25, s: "+", l: "Brands Serviced" },
   ];
@@ -658,7 +659,7 @@ function About() {
             transition={{ delay: 0.25, duration: 0.5 }}
             className="absolute -right-4 bottom-8 rounded-2xl bg-gradient-primary p-6 text-primary-foreground shadow-elegant sm:-right-8"
           >
-            <span className="block font-display text-4xl font-extrabold"><Counter to={10} suffix="+" /></span>
+            <span className="block font-display text-4xl font-extrabold"><Counter to={3} suffix="+" /></span>
             <span className="text-sm font-semibold opacity-90">Years of trusted service</span>
           </motion.div>
         </Reveal>
@@ -670,7 +671,7 @@ function About() {
           </p>
           <div className="mt-8 space-y-4">
             {[
-              ["Proven Experience", "A decade of repairing laptops and desktops across every major brand."],
+              ["Proven Experience", "Years of dedicated repair experience across every major laptop and desktop brand."],
               ["Quality Service", "Careful diagnosis, clean workmanship and tested results every time."],
               ["Customer Satisfaction", "Clear communication, fair pricing and warranty-backed repairs."],
             ].map(([t, d], i) => (
@@ -1057,6 +1058,25 @@ function Contact() {
                     <span className="text-sm font-semibold text-navy">Mon – Sat: 9:30 AM – 7:30 PM</span>
                   </div>
                 </div>
+
+                <a
+                  href={INSTAGRAM}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3.5 rounded-2xl border p-4 transition-all hover:border-primary/40 hover:bg-accent/40 hover:shadow-xs group"
+                >
+                  <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-accent text-primary transition-all group-hover:bg-gradient-to-tr group-hover:from-[#f9ce34] group-hover:via-[#ee2a7b] group-hover:to-[#6228d7] group-hover:text-white">
+                    <Instagram className="size-5" />
+                  </span>
+                  <div className="min-w-0">
+                    <span className="block text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                      Follow On Instagram
+                    </span>
+                    <span className="block truncate text-sm font-bold text-navy group-hover:text-primary">
+                      @longetechnologies
+                    </span>
+                  </div>
+                </a>
               </div>
 
               <Button variant="navy" size="lg" className="w-full mt-2" asChild>
@@ -1217,7 +1237,12 @@ function Contact() {
 }
 
 function Footer() {
-  const socials = [Facebook, Instagram, Linkedin, Twitter];
+  const socials = [
+    { icon: Instagram, label: "Instagram", href: INSTAGRAM },
+    { icon: Facebook, label: "Facebook", href: "#" },
+    { icon: Linkedin, label: "LinkedIn", href: "#" },
+    { icon: Twitter, label: "Twitter", href: "#" },
+  ];
   return (
     <footer className="bg-navy pt-20 pb-8 text-navy-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 text-center sm:grid-cols-2 sm:text-left lg:grid-cols-4 lg:px-8">
@@ -1227,14 +1252,16 @@ function Footer() {
             Premier laptop & computer repair, chip-level diagnosis, upgrades and maintenance across Kerala.
           </p>
           <div className="mt-6 flex justify-center gap-3 sm:justify-start">
-            {socials.map((S, i) => (
+            {socials.map((s) => (
               <a
-                key={i}
-                href="#"
-                aria-label="Social link"
-                className="grid size-10 place-items-center rounded-full border border-navy-foreground/15 transition-all hover:-translate-y-1 hover:border-primary hover:bg-primary"
+                key={s.label}
+                href={s.href}
+                target={s.href !== "#" ? "_blank" : undefined}
+                rel={s.href !== "#" ? "noreferrer" : undefined}
+                aria-label={`Follow on ${s.label}`}
+                className="grid size-10 place-items-center rounded-full border border-navy-foreground/15 transition-all hover:-translate-y-1 hover:border-primary hover:bg-primary hover:text-white"
               >
-                <S className="size-4" />
+                <s.icon className="size-4" />
               </a>
             ))}
           </div>
@@ -1320,12 +1347,20 @@ function Footer() {
               </a>
             </div>
 
-            <div className="pt-1">
+            <div className="pt-1 flex flex-col gap-2">
               <a
                 href={`mailto:${EMAIL}`}
                 className="inline-flex items-center gap-2 text-xs text-navy-foreground/70 hover:text-primary-glow"
               >
                 <Mail className="size-3.5 text-primary-glow" /> {EMAIL}
+              </a>
+              <a
+                href={INSTAGRAM}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-xs text-navy-foreground/70 hover:text-primary-glow"
+              >
+                <Instagram className="size-3.5 text-primary-glow" /> @longetechnologies
               </a>
             </div>
           </div>
