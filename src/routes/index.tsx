@@ -16,12 +16,13 @@ import {
   ShieldCheck, Wrench, FileCheck2, Users, BadgeIndianRupee, Zap, PackageCheck, Headphones,
   PhoneCall, Search, Truck, Phone, Mail, MapPin, MessageCircle, Menu, X, ArrowRight,
   CheckCircle2, Briefcase, Facebook, Instagram, Linkedin, Twitter, Star, Clock, Send, ChevronUp,
-  Navigation, ExternalLink, Building2, Printer, Cctv, ShoppingBag,
+  Navigation, ExternalLink, Building2, Printer, Cctv, ShoppingBag, Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ApplyDialog, POSITIONS } from "@/components/site/ApplyDialog";
+import { sendEnquiryEmail, EMAILJS_CONFIG } from "@/lib/emailjs";
 import heroImg from "@/assets/hero-repair.jpg";
 import aboutImg from "@/assets/about-workshop.jpg";
 import logoImg from "@/assets/logo.png";
@@ -470,7 +471,7 @@ function Navbar() {
                 </a>
               </li>
               <li className="pt-2 text-[11px] text-muted-foreground text-center">
-                <span>3 Centers: Kozhikode (HQ) • Kannur • Trivandrum</span>
+                <span>Service Centers: Kozhikode (HQ) • Kannur • Trivandrum</span>
               </li>
             </ul>
           </motion.div>
@@ -518,7 +519,7 @@ function Hero() {
           <motion.div variants={fade}>
             <span className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-background/95 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-navy shadow-soft backdrop-blur-md">
               <span className="size-2 animate-pulse rounded-full bg-success" />
-              <span>3 Centers in Kerala: Kozhikode (HQ) • Kannur • Trivandrum</span>
+              <span>Service Centers in Kerala: Kozhikode (HQ) • Kannur • Trivandrum</span>
             </span>
           </motion.div>
 
@@ -914,11 +915,13 @@ const contactSchema = z.object({
 function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [activeMapBranch, setActiveMapBranch] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function submit(e: React.FormEvent<HTMLFormElement>) {
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const res = contactSchema.safeParse(Object.fromEntries(new FormData(form)));
+    const formData = Object.fromEntries(new FormData(form));
+    const res = contactSchema.safeParse(formData);
     if (!res.success) {
       const errs: Record<string, string> = {};
       res.error.issues.forEach((i) => (errs[String(i.path[0])] = i.message));
@@ -926,10 +929,54 @@ function Contact() {
       return;
     }
     setErrors({});
-    form.reset();
-    toast.success("Inquiry sent successfully!", {
-      description: "Our service team will connect with you promptly.",
-    });
+    setIsSubmitting(true);
+
+    const payload = {
+      name: res.data.name,
+      phone: res.data.phone,
+      email: res.data.email,
+      branch: res.data.branch || "Kozhikode (Head Office)",
+      service: res.data.service || "General Consultation",
+      message: res.data.message,
+    };
+
+    try {
+      if (!EMAILJS_CONFIG.serviceId || !EMAILJS_CONFIG.templateId || !EMAILJS_CONFIG.publicKey) {
+        // If EmailJS credentials are not yet set in .env:
+        const mailSubject = encodeURIComponent(`Service Enquiry: ${payload.service} - ${payload.name}`);
+        const mailBody = encodeURIComponent(
+          `Customer Details:\n` +
+          `----------------\n` +
+          `Name: ${payload.name}\n` +
+          `Phone: ${payload.phone}\n` +
+          `Email: ${payload.email}\n` +
+          `Service Center: ${payload.branch}\n` +
+          `Service Needed: ${payload.service}\n\n` +
+          `Problem Description:\n` +
+          `${payload.message}\n`
+        );
+        window.open(`mailto:${EMAILJS_CONFIG.companyEmail}?subject=${mailSubject}&body=${mailBody}`, "_blank");
+
+        toast.success("Inquiry drafted to Longe Technologies!", {
+          description: `An email to ${EMAILJS_CONFIG.companyEmail} has been opened. Add EmailJS keys in .env for direct automated dispatch.`,
+        });
+        form.reset();
+        return;
+      }
+
+      await sendEnquiryEmail(payload);
+      form.reset();
+      toast.success("Inquiry sent successfully to Longe Technologies!", {
+        description: `Details delivered to ${EMAILJS_CONFIG.companyEmail}. Our service team will connect with you promptly.`,
+      });
+    } catch (err: unknown) {
+      console.error("Failed to send inquiry via EmailJS:", err);
+      toast.error("Failed to send inquiry via EmailJS", {
+        description: "Please check your network or EmailJS configuration, or reach us directly on WhatsApp.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const err = (k: string) => errors[k] && <p className="mt-1 text-xs text-destructive">{errors[k]}</p>;
@@ -941,10 +988,10 @@ function Contact() {
         <SectionHead
           eyebrow="Our Service Centers & Contact"
           title="Visit or reach out to our service centers"
-          desc="3 convenient locations across Kerala — Kozhikode (Head Office), Kannur, and Thiruvananthapuram. Walk in or contact us for prompt support."
+          desc="Convenient locations across Kerala — Kozhikode (Head Office), Kannur, and Thiruvananthapuram. Walk in or contact us for prompt support."
         />
 
-        {/* 3 Service Center Location Cards */}
+        {/* Service Center Location Cards */}
         <div className="grid gap-6 md:grid-cols-3 mb-12">
           {BRANCHES.map((b, i) => (
             <Reveal key={b.id} delay={i * 0.1}>
@@ -1136,8 +1183,16 @@ function Contact() {
                 <Textarea name="message" placeholder="Describe the problem with your laptop or computer…" maxLength={1000} rows={4} />
                 {err("message")}
               </div>
-              <Button type="submit" variant="hero" size="lg" className="sm:col-span-2">
-                Send Inquiry <Send />
+              <Button type="submit" variant="hero" size="lg" className="sm:col-span-2" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" /> Sending Inquiry…
+                  </>
+                ) : (
+                  <>
+                    Send Inquiry <Send />
+                  </>
+                )}
               </Button>
             </form>
           </Reveal>
