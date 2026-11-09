@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ApplyDialog, POSITIONS } from "@/components/site/ApplyDialog";
+import { JobDetailsDialog } from "@/components/site/JobDetailsDialog";
 import { sendEnquiryEmail, EMAILJS_CONFIG } from "@/lib/emailjs";
 import heroImg from "@/assets/hero-repair.jpg";
 import aboutImg from "@/assets/about-workshop.jpg";
@@ -47,6 +48,8 @@ const EMAIL = "longetechnologies@outlook.com";
 const ADDRESS = "Door No: 35/2458/D Kanakassery Building, Near Lulu Mall, Mini Bypass Rd, Mankave, Kozhikode, Kerala 673007";
 const WHATSAPP = "https://wa.me/917558916777?text=" + encodeURIComponent("Hi Longe Technologies, I need help with my laptop / computer.");
 const INSTAGRAM = "https://www.instagram.com/longetechnologies?obrf=MXNxdmFnd3k5NXlsdQ%3D%3D&utm_source=";
+const FACEBOOK = "https://www.facebook.com/share/18hmMoVuwF/?mibextid=wwXIfr";
+const THREADS = "https://www.threads.com/@longetechnologies?igshid=NTc4MTIwNjQ2YQ==";
 
 const BRANCHES = [
   {
@@ -180,8 +183,132 @@ const PROCESS = [
 ];
 
 const JOBS = [
-  { title: POSITIONS[0], icon: Laptop, desc: "Hardware troubleshooting, laptop repair and maintenance.", tags: ["Full-time", "On-site", "1+ yrs preferred"], points: ["Chip & component-level diagnosis", "Laptop & desktop repairs", "Preventive maintenance"] },
-  { title: POSITIONS[1], icon: Briefcase, desc: "Customer handling, service scheduling and engineer coordination.", tags: ["Full-time", "On-site", "Freshers welcome"], points: ["Front-desk customer handling", "Service job scheduling", "Coordinating with engineers"] },
+  {
+    title: POSITIONS[0],
+    icon: Laptop,
+    badge: "Urgent Opening",
+    desc: "Diagnose & repair laptop motherboards, chip-level faults, SMD components, and hardware across all major brands.",
+    tags: ["Full-time", "On-site", "2–5 Yrs Exp", "Chip-Level Mandatory"],
+    requirementNote: "2–5 years practical experience • Independent motherboard diagnosis",
+    points: [
+      "Chip-level motherboard repair, short-circuit & power rail diagnosis",
+      "SMD component replacement (ICs, MOSFETs, coils) & precision soldering",
+      "Schematics, Boardview, multimeter & DC power supply troubleshooting",
+      "Charging IC, power IC, BIOS programming & EC/KBC fault resolution",
+      "Display, keyboard, battery, hinge & thermal cooling replacements",
+      "Post-repair quality checks, OS setup & technical job card reporting",
+    ],
+    responsibilities: [
+      "Diagnose and repair laptop hardware and motherboard-related issues.",
+      "Perform chip-level troubleshooting and repair of laptop motherboards.",
+      "Identify faulty components using circuit diagrams, schematics, and Boardview.",
+      "Troubleshoot power-related, charging, display, USB, audio, and motherboard issues.",
+      "Perform component-level testing and replacement (ICs, MOSFETs, capacitors, resistors, coils, diodes).",
+      "Troubleshoot short circuits, power rails, charging IC, power IC, and EC/KBC faults.",
+      "Perform BIOS-related troubleshooting and programming where required.",
+      "Perform precision soldering, desoldering, and SMD component replacement.",
+      "Diagnose issues using multimeter, DC power supply, and electronic testing equipment.",
+      "Handle laptop display, keyboard, battery, RAM, SSD, cooling system, and hinge replacements.",
+      "Install and configure Windows, drivers, and required diagnostic software.",
+      "Conduct complete testing, quality checks, and maintain accurate technical job cards.",
+      "Coordinate with Front Office and ensure repairs meet committed turnaround timelines.",
+    ],
+    skillsTitle: "Technical & Chip-Level Skills",
+    hardwareSkillsTitle: "Hardware & System Skills",
+    technicalSkills: [
+      "Chip-Level Knowledge (Mandatory)",
+      "Motherboard Troubleshooting",
+      "Circuit-Level Diagnosis",
+      "SMD Component Identification",
+      "Soldering & Desoldering",
+      "Short-Circuit Diagnosis",
+      "Power Section Troubleshooting",
+      "Charging Section Troubleshooting",
+      "BIOS Programming",
+      "EC / KBC Troubleshooting",
+      "MOSFET & IC Testing",
+      "DC Power Supply Usage",
+      "Multimeter Usage",
+      "Schematics & Boardview Software",
+    ],
+    hardwareSkills: [
+      "Laptop Display Replacement",
+      "Keyboard Replacement",
+      "Battery Replacement",
+      "RAM & SSD Installation",
+      "Cooling System & Fan Replacement",
+      "Hinge & Body Repair",
+      "Windows Setup & Driver Updates",
+      "BIOS Updates & Thermal Service",
+    ],
+    requirements: [
+      "2–5 years of practical experience in laptop servicing (chip-level preferred).",
+      "Strong practical knowledge of chip-level laptop motherboard repair.",
+      "Ability to independently diagnose motherboard-level faults.",
+      "Hands-on expertise with multimeter, DC power supply, soldering iron, and hot air rework station.",
+      "Good troubleshooting and problem-solving skills with attention to detail.",
+      "Professional behaviour, good communication, and dedication to service quality.",
+    ],
+  },
+  {
+    title: POSITIONS[1],
+    icon: Briefcase,
+    badge: "Now Hiring",
+    desc: "Project planning, site supervision, documentation, client coordination, cost tracking, and quality compliance.",
+    tags: ["Full-time", "On-site", "Coordination", "Planning & Reporting"],
+    requirementNote: "Planning, site supervision & client coordination skills preferred",
+    points: [
+      "Project planning, schedule tracking & milestone monitoring",
+      "Site supervision, daily activity coordination & supplier delivery",
+      "Daily, weekly & monthly progress reporting, RFIs & meeting minutes",
+      "Client & consultant coordination for inspections & sign-offs",
+      "Cost tracking, BOQ support, expense monitoring & procurement alignment",
+      "Quality compliance, safety toolbox talks & snag list closeouts",
+    ],
+    responsibilities: [
+      "Assist in developing and maintaining detailed project schedules, Gantt charts, and work programmes.",
+      "Monitor project milestones and deadlines, flagging deviations promptly.",
+      "Coordinate with sub-contractors and suppliers to ensure timely mobilisation and delivery.",
+      "Conduct regular site visits to monitor progress, quality, and contract compliance.",
+      "Coordinate daily site activities and resolve on-site issues in a timely manner.",
+      "Ensure all works adhere to approved drawings, specifications, and contract documents.",
+      "Liaise with site team on material requirements, manpower allocation, and equipment deployment.",
+      "Prepare and maintain daily, weekly, and monthly progress reports and meeting minutes (MOM).",
+      "Manage and track submittals, RFIs, shop drawings, material approvals, and NCRs.",
+      "Serve as primary point of contact for client queries, consultant inspections, and sign-offs.",
+      "Follow up on pending approvals: shop drawings, material submittals, and payment certificates.",
+      "Support preparation of BOQs, cost estimates, variation orders, and budget tracking.",
+      "Ensure compliance with project quality plans, safety inspections, and snag list closures.",
+    ],
+    skillsTitle: "Coordination & Planning Competencies",
+    hardwareSkillsTitle: "Project & Process Capabilities",
+    technicalSkills: [
+      "Project Planning & Scheduling",
+      "Site Coordination & Supervision",
+      "Gantt Charts & Progress Trackers",
+      "Progress Reporting (Daily/Weekly/Monthly)",
+      "RFI, Submittal & NCR Management",
+      "Client & Consultant Coordination",
+      "BOQ & Cost Tracking Support",
+      "Quality & HSE Safety Standards",
+      "Snag List & Audit Closeout",
+    ],
+    hardwareSkills: [
+      "Work Programme Scheduling",
+      "Method Statements & ITP Support",
+      "Minutes of Meetings (MOM)",
+      "Material & Manpower Mobilisation",
+      "Procurement & Purchase Orders",
+      "Filing & Document Control",
+    ],
+    requirements: [
+      "Experience in project coordination, site supervision, or service scheduling.",
+      "Strong capability in maintaining project trackers, Gantt charts, and progress dashboards.",
+      "Excellent communication and coordination skills with clients, consultants, and teams.",
+      "Solid understanding of specifications, drawings, and quality/safety compliance.",
+      "Proficient in technical documentation, reporting, and MS Office tools.",
+    ],
+  },
 ];
 
 const fade = {
@@ -356,6 +483,19 @@ function WhatsAppIcon({ className = "size-5" }: { className?: string }) {
       aria-hidden="true"
     >
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+  );
+}
+
+function ThreadsIcon({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 192 192"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2109 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.1837 72.3391C80.9744 63.5524 90.0474 60.3702 97.222 60.3702C97.3023 60.3702 97.3833 60.3702 97.4643 60.3709C110.749 60.4578 120.306 68.7478 122.951 82.5186C115.82 81.3323 108.064 81.2587 99.9868 82.3027C72.0729 85.9084 54.8967 101.455 56.4026 123.676C57.8687 145.312 76.5152 158.468 97.284 158.468C114.774 158.468 128.847 148.654 135.485 133.876C140.852 143.766 148.916 150.932 161.42 150.932C178.682 150.932 188.75 137.917 188.75 119.539C188.75 88.423 166.425 67.2589 133.725 67.2589C94.5771 67.2589 67.75 95.8459 67.75 132.898C67.75 163.664 88.1633 188 121.367 188C137.957 188 152.016 182.585 162.247 172.238L151.724 160.039C143.766 167.659 133.245 171.862 121.367 171.862C97.7474 171.862 83.8887 153.256 83.8887 132.898C83.8887 104.992 103.748 83.3969 133.725 83.3969C157.069 83.3969 172.612 97.5103 172.612 119.539C172.612 131.782 166.368 135.867 161.42 135.867C153.649 135.867 148.575 129.803 144.571 118.892C143.837 116.892 143.193 114.654 142.637 112.213C138.868 95.6989 139.73 90.758 141.537 88.9883ZM120.354 118.17C118.232 128.535 110.376 142.33 97.284 142.33C87.4816 142.33 73.1118 136.002 72.3164 124.269C71.3789 110.428 83.7455 100.867 102.046 98.5034C108.064 97.7257 114.124 97.8872 120.142 98.9839C120.089 104.931 120.25 111.442 120.354 118.17Z" />
     </svg>
   );
 }
@@ -870,34 +1010,111 @@ function Process() {
 function Careers() {
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState<(typeof POSITIONS)[number]>(POSITIONS[0]);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [selectedJob, setSelectedJob] = useState<(typeof JOBS)[number] | null>(null);
+
+  const handleOpenDetails = (job: (typeof JOBS)[number]) => {
+    setSelectedJob(job);
+    setDetailsOpen(true);
+  };
+
+  const handleApplyFromDetails = () => {
+    if (selectedJob) {
+      setPos(selectedJob.title);
+      setOpen(true);
+    }
+  };
+
   return (
     <section id="careers" className="bg-secondary py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-5 lg:px-8">
-        <SectionHead eyebrow="We're Hiring" title="Build your career with Longe" desc="Join a skilled, friendly team that takes pride in fixing things right." />
+        <SectionHead
+          eyebrow="We're Hiring"
+          title="Build your career with Longe Technologies"
+          desc="Join Kerala's premier chip-level laptop & computer service team. We value technical expertise, repair quality, and professional growth."
+        />
         <div className="grid gap-8 md:grid-cols-2">
           {JOBS.map((j, i) => (
             <Reveal key={j.title} delay={i * 0.12}>
-              <div className="group flex h-full flex-col rounded-3xl border bg-card p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-card-hover">
+              <div className="group flex h-full flex-col rounded-3xl border bg-card p-7 sm:p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-card-hover">
                 <div className="flex items-start justify-between gap-4">
-                  <span className="grid size-14 place-items-center rounded-2xl bg-gradient-navy text-navy-foreground"><j.icon className="size-7" /></span>
-                  <span className="rounded-full bg-success/15 px-3 py-1 text-xs font-bold text-success">Now hiring</span>
+                  <span className="grid size-14 place-items-center rounded-2xl bg-gradient-navy text-navy-foreground shadow-xs">
+                    <j.icon className="size-7" />
+                  </span>
+                  <span className="rounded-full bg-success/15 px-3 py-1 text-xs font-bold text-success">
+                    {j.badge}
+                  </span>
                 </div>
+
                 <h3 className="mt-6 text-2xl font-bold text-navy">{j.title}</h3>
-                <p className="mt-2 text-muted-foreground">{j.desc}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{j.desc}</p>
+
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {j.tags.map((t) => <span key={t} className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">{t}</span>)}
+                  {j.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground"
+                    >
+                      {t}
+                    </span>
+                  ))}
                 </div>
-                <ul className="mt-6 flex-1 space-y-2.5">
-                  {j.points.map((p) => <li key={p} className="flex items-center gap-2.5 text-sm text-navy/80"><CheckCircle2 className="size-4 text-primary" />{p}</li>)}
+
+                {j.requirementNote && (
+                  <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 px-3.5 py-2 text-xs font-medium text-navy/90">
+                    <span className="font-bold text-primary">Requirement: </span>
+                    {j.requirementNote}
+                  </div>
+                )}
+
+                <div className="mt-5 mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                    Key Highlights & Responsibilities:
+                  </span>
+                </div>
+
+                <ul className="flex-1 space-y-2.5">
+                  {j.points.map((p) => (
+                    <li key={p} className="flex items-start gap-2.5 text-xs sm:text-sm text-navy/80">
+                      <CheckCircle2 className="size-4 shrink-0 text-primary mt-0.5" />
+                      <span>{p}</span>
+                    </li>
+                  ))}
                 </ul>
-                <Button variant="hero" size="lg" className="mt-8 w-full" onClick={() => { setPos(j.title); setOpen(true); }}>
-                  Apply Now <ArrowRight />
-                </Button>
+
+                <div className="mt-8 pt-6 border-t border-border/70 flex flex-col sm:flex-row gap-3">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="flex-1 text-xs sm:text-sm"
+                    onClick={() => handleOpenDetails(j)}
+                  >
+                    View Full Details
+                  </Button>
+                  <Button
+                    variant="hero"
+                    size="lg"
+                    className="flex-1 text-xs sm:text-sm"
+                    onClick={() => {
+                      setPos(j.title);
+                      setOpen(true);
+                    }}
+                  >
+                    Apply Now <ArrowRight />
+                  </Button>
+                </div>
               </div>
             </Reveal>
           ))}
         </div>
       </div>
+
+      <JobDetailsDialog
+        open={detailsOpen}
+        onOpenChange={setDetailsOpen}
+        job={selectedJob}
+        onApply={handleApplyFromDetails}
+      />
       <ApplyDialog open={open} onOpenChange={setOpen} position={pos} />
     </section>
   );
@@ -1106,24 +1323,64 @@ function Contact() {
                   </div>
                 </div>
 
-                <a
-                  href={INSTAGRAM}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-3.5 rounded-2xl border p-4 transition-all hover:border-primary/40 hover:bg-accent/40 hover:shadow-xs group"
-                >
-                  <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-accent text-primary transition-all group-hover:bg-gradient-to-tr group-hover:from-[#f9ce34] group-hover:via-[#ee2a7b] group-hover:to-[#6228d7] group-hover:text-white">
-                    <Instagram className="size-5" />
-                  </span>
-                  <div className="min-w-0">
-                    <span className="block text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                      Follow On Instagram
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <a
+                    href={INSTAGRAM}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2.5 rounded-2xl border p-3 transition-all hover:border-primary/40 hover:bg-accent/40 hover:shadow-xs group"
+                  >
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-accent text-primary transition-all group-hover:bg-gradient-to-tr group-hover:from-[#f9ce34] group-hover:via-[#ee2a7b] group-hover:to-[#6228d7] group-hover:text-white">
+                      <Instagram className="size-4" />
                     </span>
-                    <span className="block truncate text-sm font-bold text-navy group-hover:text-primary">
-                      @longetechnologies
+                    <div className="min-w-0">
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                        Instagram
+                      </span>
+                      <span className="block truncate text-xs font-bold text-navy group-hover:text-primary">
+                        @longetech...
+                      </span>
+                    </div>
+                  </a>
+
+                  <a
+                    href={FACEBOOK}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2.5 rounded-2xl border p-3 transition-all hover:border-primary/40 hover:bg-accent/40 hover:shadow-xs group"
+                  >
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-accent text-primary transition-all group-hover:bg-[#1877F2] group-hover:text-white">
+                      <Facebook className="size-4" />
                     </span>
-                  </div>
-                </a>
+                    <div className="min-w-0">
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                        Facebook
+                      </span>
+                      <span className="block truncate text-xs font-bold text-navy group-hover:text-primary">
+                        Longe Tech
+                      </span>
+                    </div>
+                  </a>
+
+                  <a
+                    href={THREADS}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2.5 rounded-2xl border p-3 transition-all hover:border-primary/40 hover:bg-accent/40 hover:shadow-xs group"
+                  >
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-accent text-primary transition-all group-hover:bg-navy group-hover:text-white">
+                      <ThreadsIcon className="size-4" />
+                    </span>
+                    <div className="min-w-0">
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                        Threads
+                      </span>
+                      <span className="block truncate text-xs font-bold text-navy group-hover:text-primary">
+                        @longetech...
+                      </span>
+                    </div>
+                  </a>
+                </div>
               </div>
 
               <Button variant="navy" size="lg" className="w-full mt-2" asChild>
@@ -1294,9 +1551,9 @@ function Contact() {
 function Footer() {
   const socials = [
     { icon: Instagram, label: "Instagram", href: INSTAGRAM },
-    { icon: Facebook, label: "Facebook", href: "#" },
+    { icon: Facebook, label: "Facebook", href: FACEBOOK },
+    { icon: ThreadsIcon, label: "Threads", href: THREADS },
     { icon: Linkedin, label: "LinkedIn", href: "#" },
-    { icon: Twitter, label: "Twitter", href: "#" },
   ];
   return (
     <footer className="bg-navy pt-20 pb-8 text-navy-foreground">
@@ -1416,6 +1673,22 @@ function Footer() {
                 className="inline-flex items-center gap-2 text-xs text-navy-foreground/70 hover:text-primary-glow"
               >
                 <Instagram className="size-3.5 text-primary-glow" /> @longetechnologies
+              </a>
+              <a
+                href={FACEBOOK}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-xs text-navy-foreground/70 hover:text-primary-glow"
+              >
+                <Facebook className="size-3.5 text-primary-glow" /> Facebook Page
+              </a>
+              <a
+                href={THREADS}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-xs text-navy-foreground/70 hover:text-primary-glow"
+              >
+                <ThreadsIcon className="size-3.5 text-primary-glow" /> @longetechnologies on Threads
               </a>
             </div>
           </div>

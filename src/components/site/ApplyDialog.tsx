@@ -55,6 +55,16 @@ export function ApplyDialog({
           <DialogDescription>Join the Longe Technologies service team.</DialogDescription>
         </DialogHeader>
         <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2" key={position}>
+          {position === "Laptop Service Engineer" && (
+            <div className="sm:col-span-2 rounded-xl bg-primary/10 border border-primary/20 p-3 text-xs text-navy font-medium">
+              ⚡ <strong>Requirement:</strong> Practical chip-level motherboard repair experience (2–5 years preferred).
+            </div>
+          )}
+          {position === "Service Coordinator" && (
+            <div className="sm:col-span-2 rounded-xl bg-primary/10 border border-primary/20 p-3 text-xs text-navy font-medium">
+              ⚡ <strong>Requirement:</strong> Planning, site coordination, reporting, and client communication experience.
+            </div>
+          )}
           <div className={`${field} sm:col-span-2`}>
             <Label htmlFor="a-name">Full name</Label>
             <Input id="a-name" name="name" maxLength={100} placeholder="Your name" />
@@ -79,10 +89,10 @@ export function ApplyDialog({
           <div className={field}>
             <Label htmlFor="a-exp">Experience</Label>
             <select id="a-exp" name="experience" defaultValue="" className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
-              <option value="" disabled>Select</option>
+              <option value="" disabled>Select experience</option>
               <option>Fresher</option>
               <option>1–2 years</option>
-              <option>3–5 years</option>
+              <option>2–5 years (Recommended for Engineer)</option>
               <option>5+ years</option>
             </select>
             {err("experience")}
