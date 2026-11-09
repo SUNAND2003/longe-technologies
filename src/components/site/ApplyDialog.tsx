@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Upload, Send } from "lucide-react";
+import { Upload, Send, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { sendJobApplicationEmail, EMAILJS_CONFIG } from "@/lib/emailjs";
 
 export const POSITIONS = ["Laptop Service Engineer", "Service Coordinator"] as const;
+
+function formatFileSize(bytes: number): string {
+  if (bytes < 1024) return bytes + " B";
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+  return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+}
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(100),
@@ -28,10 +35,12 @@ export function ApplyDialog({
 }) {
   const [file, setFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function submit(e: React.FormEvent<HTMLFormElement>) {
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
     const res = schema.safeParse(data);
     const errs: Record<string, string> = {};
     if (!res.success) res.error.issues.forEach((i) => (errs[String(i.path[0])] = i.message));
@@ -39,9 +48,61 @@ export function ApplyDialog({
     else if (file.size > 5 * 1024 * 1024) errs["resume"] = "Resume must be under 5 MB";
     setErrors(errs);
     if (Object.keys(errs).length) return;
-    toast.success("Application submitted!", { description: "Our HR team will contact you shortly." });
-    setFile(null);
-    onOpenChange(false);
+
+    setIsSubmitting(true);
+
+    const payload = {
+      name: res.data.name,
+      phone: res.data.phone,
+      email: res.data.email,
+      position: res.data.position,
+      experience: res.data.experience,
+      resumeFileName: file.name,
+      resumeFileSize: formatFileSize(file.size),
+    };
+
+    try {
+      if (!EMAILJS_CONFIG.serviceId || !EMAILJS_CONFIG.templateId || !EMAILJS_CONFIG.publicKey) {
+        // Fallback mailto if EmailJS credentials are not present
+        const mailSubject = encodeURIComponent(`Job Application: ${payload.position} - ${payload.name}`);
+        const mailBody = encodeURIComponent(
+          `Candidate Application Details:\n` +
+          `==============================\n` +
+          `Position Applied: ${payload.position}\n` +
+          `Candidate Name:   ${payload.name}\n` +
+          `Phone Number:     ${payload.phone}\n` +
+          `Email Address:    ${payload.email}\n` +
+          `Experience Level: ${payload.experience}\n` +
+          `Resume File:      ${payload.resumeFileName} (${payload.resumeFileSize})\n` +
+          `==============================\n` +
+          `Please attach your resume (${payload.resumeFileName}) before sending.`
+        );
+        window.open(`mailto:${EMAILJS_CONFIG.companyEmail}?subject=${mailSubject}&body=${mailBody}`, "_blank");
+
+        toast.success("Application drafted to HR!", {
+          description: `An email to ${EMAILJS_CONFIG.companyEmail} has been opened with candidate details.`,
+        });
+        setFile(null);
+        onOpenChange(false);
+        return;
+      }
+
+      await sendJobApplicationEmail(payload);
+
+      toast.success("Application submitted successfully!", {
+        description: `Full details sent to ${EMAILJS_CONFIG.companyEmail}. Our HR team will contact you shortly.`,
+      });
+      setFile(null);
+      setErrors({});
+      onOpenChange(false);
+    } catch (err: unknown) {
+      console.error("Failed to submit job application via EmailJS:", err);
+      toast.error("Failed to send application via EmailJS", {
+        description: `Please check your connection or email your resume directly to ${EMAILJS_CONFIG.companyEmail}.`,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const field = "space-y-1.5";
@@ -106,8 +167,16 @@ export function ApplyDialog({
             <input id="a-resume" type="file" accept=".pdf,.doc,.docx" className="sr-only" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
             {err("resume")}
           </div>
-          <Button type="submit" variant="hero" size="lg" className="sm:col-span-2">
-            Submit Application <Send />
+          <Button type="submit" variant="hero" size="lg" className="sm:col-span-2" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <>
+                <Loader2 className="size-4 animate-spin shrink-0" /> Submitting Application...
+              </>
+            ) : (
+              <>
+                Submit Application <Send className="size-4 shrink-0" />
+              </>
+            )}
           </Button>
         </form>
       </DialogContent>
