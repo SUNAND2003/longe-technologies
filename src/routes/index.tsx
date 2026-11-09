@@ -966,23 +966,87 @@ function Services() {
 function WhyUs() {
   return (
     <section id="why" className="relative overflow-hidden bg-navy py-24 lg:py-32">
-      <div className="absolute inset-0 bg-grid opacity-60" />
-      <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-40 left-1/2 size-[600px] -translate-x-1/2 rounded-full bg-primary blur-[120px]"
+      {/* Top and bottom subtle glowing border lines */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+      {/* Modern Radial-Masked Precision Tech Grid */}
+      <div className="absolute inset-0 bg-grid opacity-35 [mask-image:radial-gradient(ellipse_80%_60%_at_50%_40%,#000_60%,transparent_100%)] pointer-events-none" />
+
+      {/* Cyber Dot-Matrix Pattern layer for rich texture */}
+      <div
+        className="absolute inset-0 opacity-20 [mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,#000_50%,transparent_100%)] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, rgba(255, 255, 255, 0.18) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
+
+      {/* Atmospheric Multi-Layer Aurora Glows */}
+      <motion.div
+        animate={{
+          scale: [1, 1.15, 1],
+          opacity: [0.25, 0.4, 0.25],
+          x: ["-50%", "-48%", "-50%"],
+        }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -top-48 left-1/2 size-[650px] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary via-primary-glow to-transparent blur-[140px]"
+      />
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.12, 0.22, 0.12],
+        }}
+        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="pointer-events-none absolute -bottom-32 -left-20 size-[500px] rounded-full bg-cyan-500/20 blur-[130px]"
+      />
+      <motion.div
+        animate={{
+          scale: [1, 1.25, 1],
+          opacity: [0.1, 0.2, 0.1],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        className="pointer-events-none absolute -bottom-32 -right-20 size-[500px] rounded-full bg-blue-600/20 blur-[130px]"
+      />
+
+      {/* Content */}
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHead light eyebrow="Why Choose Us" title="Repairs you can trust" desc="What makes Longe the go-to service centre for laptops and computers." />
+        <SectionHead
+          light
+          eyebrow="Why Choose Us"
+          title="Repairs you can trust"
+          desc="What makes Longe the go-to service centre for laptops and computers across Kerala."
+        />
+
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
           {WHY.map((w, i) => (
             <Reveal key={w.title} delay={i * 0.08} direction="up">
-              <div className="group h-full rounded-3xl border border-navy-foreground/10 bg-navy-foreground/5 p-7 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-primary/60 hover:bg-navy-foreground/10">
-                <span className="grid size-12 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-elegant transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
-                  <w.icon className="size-6" />
+              <div className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-primary/60 hover:bg-white/[0.12] hover:shadow-[0_20px_50px_-15px_rgba(40,120,240,0.35)] flex flex-col justify-between">
+                {/* Top subtle glow highlight */}
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                {/* Subtle Watermark Step Number */}
+                <span className="absolute top-4 right-5 text-2xl font-bold font-display text-white/10 select-none transition-colors duration-300 group-hover:text-primary/30">
+                  0{i + 1}
                 </span>
-                <h3 className="mt-5 text-lg font-bold text-navy-foreground">{w.title}</h3>
-                <p className="mt-2 text-sm text-navy-foreground/65">{w.desc}</p>
+
+                <div>
+                  <span className="grid size-13 place-items-center rounded-2xl bg-gradient-primary text-primary-foreground shadow-elegant transition-all duration-500 group-hover:rotate-6 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(40,120,240,0.6)]">
+                    <w.icon className="size-6" />
+                  </span>
+                  <h3 className="mt-5 text-lg font-bold text-white transition-colors duration-300 group-hover:text-primary-glow">
+                    {w.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">
+                    {w.desc}
+                  </p>
+                </div>
+
+                {/* Bottom active indicator */}
+                <div className="mt-6 flex items-center gap-1.5 text-[11px] font-semibold text-primary-glow opacity-0 transition-all duration-300 group-hover:opacity-100">
+                  <span className="size-1.5 rounded-full bg-primary-glow animate-pulse" />
+                  Verified Standard
+                </div>
               </div>
             </Reveal>
           ))}
@@ -1434,7 +1498,7 @@ function Contact() {
                 </div>
               </div>
 
-              <Button variant="navy" size="lg" className="w-full mt-2" asChild>
+              <Button variant="whatsapp" size="lg" className="w-full mt-2" asChild>
                 <a href={WHATSAPP} target="_blank" rel="noreferrer">
                   <WhatsAppIcon className="size-4" /> WhatsApp Head Office
                 </a>
@@ -1748,6 +1812,17 @@ function Footer() {
 
       <div className="mx-auto mt-14 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-navy-foreground/10 px-5 pt-8 text-center text-xs text-navy-foreground/50 sm:flex-row sm:text-left lg:px-8">
         <span>© {new Date().getFullYear()} Longe Technologies. All rights reserved.</span>
+        <span className="flex items-center gap-1 text-navy-foreground/60">
+          Developed by{" "}
+          <a
+            href="https://hexabranding.com"
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-navy-foreground/85 transition-colors hover:text-primary-glow underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
+          >
+            Hexa Branding
+          </a>
+        </span>
         <span>Kerala: Kozhikode (Head Office) • Kannur • Thiruvananthapuram</span>
       </div>
     </footer>

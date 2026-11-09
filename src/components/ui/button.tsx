@@ -11,6 +11,7 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         hero: "bg-gradient-primary text-primary-foreground shadow-elegant hover:-translate-y-0.5 hover:brightness-110",
         navy: "bg-navy text-navy-foreground hover:bg-navy-soft hover:-translate-y-0.5",
+        whatsapp: "bg-[#25D366] text-white hover:bg-[#20ba5a] shadow-md hover:shadow-lg hover:-translate-y-0.5",
         outline: "border border-input bg-background text-foreground hover:border-primary hover:text-primary",
         ghostLight: "border border-navy-foreground/25 text-navy-foreground hover:bg-navy-foreground/10",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
