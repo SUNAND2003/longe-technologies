@@ -783,7 +783,7 @@ function Hero() {
 
 function About() {
   const stats = [
-    { n: 3, s: "+", l: "Years Experience" },
+    { n: 8, s: "+", l: "Years Experience" },
     { n: 1000, s: "+", l: "Devices Repaired" },
     { n: 98, s: "%", l: "Happy Customers" },
     { n: 25, s: "+", l: "Brands Serviced" },
@@ -800,7 +800,7 @@ function About() {
             transition={{ delay: 0.25, duration: 0.5 }}
             className="absolute -right-4 bottom-8 rounded-2xl bg-gradient-primary p-6 text-primary-foreground shadow-elegant sm:-right-8"
           >
-            <span className="block font-display text-4xl font-extrabold"><Counter to={3} suffix="+" /></span>
+            <span className="block font-display text-4xl font-extrabold"><Counter to={8} suffix="+" /></span>
             <span className="text-sm font-semibold opacity-90">Years of trusted service</span>
           </motion.div>
         </Reveal>
@@ -1082,11 +1082,11 @@ function Careers() {
                   ))}
                 </ul>
 
-                <div className="mt-8 pt-6 border-t border-border/70 flex flex-col sm:flex-row gap-3">
+                <div className="mt-8 pt-6 border-t border-border/70 grid grid-cols-2 gap-2.5 sm:gap-3">
                   <Button
                     variant="outline"
                     size="lg"
-                    className="flex-1 text-xs sm:text-sm"
+                    className="w-full h-12 sm:h-12 px-2 sm:px-4 text-xs sm:text-sm font-semibold truncate"
                     onClick={() => handleOpenDetails(j)}
                   >
                     View Full Details
@@ -1094,13 +1094,13 @@ function Careers() {
                   <Button
                     variant="hero"
                     size="lg"
-                    className="flex-1 text-xs sm:text-sm"
+                    className="w-full h-12 sm:h-12 px-2 sm:px-4 text-xs sm:text-sm font-bold shadow-soft"
                     onClick={() => {
                       setPos(j.title);
                       setOpen(true);
                     }}
                   >
-                    Apply Now <ArrowRight />
+                    Apply Now <ArrowRight className="size-3.5 sm:size-4 shrink-0" />
                   </Button>
                 </div>
               </div>
