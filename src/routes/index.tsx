@@ -28,6 +28,7 @@ import heroImg from "@/assets/hero-repair.jpg";
 import aboutImg from "@/assets/about-workshop.jpg";
 import logoImg from "@/assets/logo.png";
 import logoWhiteImg from "@/assets/logo-white.png";
+import macImg from "@/assets/mac-service.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -110,60 +111,70 @@ const SERVICES = [
     title: "Laptop & Desktop Sales & Service",
     desc: "Brand new system sales, custom PC builds, and complete diagnosis and repair for all brands.",
     badge: "Sales & Service",
+    image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: Cpu,
     title: "Laptop Chip Level Service",
     desc: "Advanced motherboard BGA rework, micro-soldering, short-circuit troubleshooting & power IC fixes.",
     badge: "Chip Level",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: ShoppingBag,
     title: "Used Laptop Sales",
     desc: "Fully tested, high-quality certified pre-owned laptops with warranty support at great prices.",
     badge: "Certified Pre-Owned",
+    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: Printer,
     title: "Printer Sales & Service",
     desc: "LaserJet, Inkjet, and thermal printer repair, cartridge toner refilling, printhead service & new sales.",
     badge: "Printers",
+    image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: Cctv,
     title: "CCTV Installation & Service",
     desc: "End-to-end security camera setup, DVR/NVR configuration, mobile live-view, cabling & maintenance.",
     badge: "Surveillance",
+    image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: DatabaseBackup,
     title: "Data Recovery",
     desc: "Safe data extraction and restoration from failed hard disks, SSDs, formatted drives & corrupt OS.",
     badge: "Data Care",
+    image: "https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: ShieldCheck,
     title: "Multi-Brand Warranty Support",
     desc: "Authorized-grade repairs and warranty assistance for HP, Dell, Lenovo, Asus, Acer, Apple & more.",
     badge: "Warranty Support",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: FileCheck2,
     title: "AMC (Annual Maintenance Contract)",
     desc: "Proactive IT maintenance, regular servicing, and prioritized breakdown support for offices and homes.",
     badge: "AMC Contracts",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: AppWindow,
     title: "Software Installation",
     desc: "Genuine OS setup (Windows/macOS/Linux), drivers, antivirus security, and specialized software setup.",
     badge: "Software & OS",
+    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: Truck,
     title: "Onsite Desktop & Laptop Service",
     desc: "Doorstep service engineer visits to your residence or office for immediate diagnosis and on-the-spot repair.",
     badge: "Doorstep Onsite",
+    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=600&q=80",
   },
 ] as const;
 
@@ -858,52 +869,92 @@ function Services() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
               whileHover={{ y: -8 }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border bg-card p-7 transition-shadow duration-300 hover:shadow-card-hover"
+              className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border bg-card transition-all duration-300 hover:shadow-card-hover"
             >
-              <div className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-primary transition-transform duration-500 group-hover:scale-x-100" />
-              <div>
-                <div className="flex items-center justify-between gap-2">
-                  <span className="grid size-14 place-items-center rounded-2xl bg-accent text-primary transition-all duration-300 group-hover:bg-gradient-primary group-hover:text-primary-foreground group-hover:shadow-elegant">
-                    <s.icon className="size-7" />
-                  </span>
-                  <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-navy/70">
-                    {s.badge}
-                  </span>
-                </div>
-                <h3 className="mt-5 text-lg font-bold text-navy leading-snug">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+              {/* Service Photo Banner - 100% visible, sharp & vibrant */}
+              <div className="relative h-44 w-full overflow-hidden bg-muted">
+                <img
+                  src={s.image}
+                  alt={s.title}
+                  loading="lazy"
+                  width={600}
+                  height={400}
+                  className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                <span className="absolute top-3 right-3 rounded-full bg-navy/85 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm border border-white/10">
+                  {s.badge}
+                </span>
               </div>
-              <a
-                href="#contact"
-                className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-primary opacity-85 transition-all group-hover:gap-2.5 group-hover:opacity-100"
-              >
-                Inquire now <ArrowRight className="size-4" />
-              </a>
+
+              {/* Service Details Body */}
+              <div className="flex flex-1 flex-col justify-between p-6">
+                <div>
+                  <h3 className="text-lg font-bold text-navy leading-snug group-hover:text-primary transition-colors">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {s.desc}
+                  </p>
+                </div>
+                <a
+                  href="#contact"
+                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-primary opacity-85 transition-all group-hover:gap-2.5 group-hover:opacity-100"
+                >
+                  Inquire now <ArrowRight className="size-4" />
+                </a>
+              </div>
             </motion.div>
           ))}
-          <Reveal className="flex flex-col justify-between rounded-3xl bg-gradient-navy p-7 text-navy-foreground sm:col-span-2 lg:col-span-1 xl:col-span-2">
-            <div>
-              <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-bold text-primary-glow">
-                Need Fast Assistance?
-              </span>
-              <h3 className="mt-4 text-2xl font-bold">Have a specific device issue or requirement?</h3>
-              <p className="mt-2 text-sm text-navy-foreground/75 leading-relaxed">
-                Connect with our certified engineers for instant consultation, free diagnosis, or on-site service booking across Kerala.
-              </p>
+          <Reveal className="group relative overflow-hidden rounded-3xl sm:col-span-2 lg:col-span-2 xl:col-span-2 shadow-card-hover border border-white/10 flex flex-col justify-between h-full min-h-[340px]">
+            {/* Complete Mac Image spanning the entire card */}
+            <div className="absolute inset-0 z-0 overflow-hidden">
+              <img
+                src={macImg}
+                alt="Apple Mac & MacBook Repair by Longe Technologies"
+                className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+                width={1200}
+                height={960}
+              />
+              {/* Subtle gradient to keep full photo completely visible while ensuring text readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/50 to-transparent" />
             </div>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Button variant="hero" asChild>
-                <a href={WHATSAPP} target="_blank" rel="noreferrer">
-                  <WhatsAppIcon className="size-4" /> WhatsApp Us
-                </a>
-              </Button>
-              <Button
-                variant="ghostLight"
-                asChild
-                className="border border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white font-semibold"
-              >
-                <a href="#contact">Send Inquiry</a>
-              </Button>
+
+            {/* Content overlay without any solid background block */}
+            <div className="relative z-10 flex flex-col justify-between p-6 sm:p-7 h-full max-w-lg">
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-primary/25 backdrop-blur-md px-2.5 py-0.5 text-[10px] font-bold text-primary-glow border border-primary/40 uppercase tracking-wider">
+                    Apple Mac Specialist
+                  </span>
+                  <span className="rounded-full bg-black/30 backdrop-blur-md px-2 py-0.5 text-[10px] font-semibold text-white/90 border border-white/15">
+                    MacBook Pro • Air • iMac
+                  </span>
+                </div>
+                <h3 className="mt-3 text-lg sm:text-xl font-bold text-white leading-snug drop-shadow-sm">
+                  Specialized Apple MacBook & iMac Service
+                </h3>
+                <p className="mt-2 text-xs sm:text-sm text-white/85 leading-relaxed line-clamp-3 drop-shadow-sm">
+                  Chip-level logic board repair, liquid damage recovery, Retina display replacement, battery service & performance upgrades across Kerala.
+                </p>
+              </div>
+
+              <div className="mt-4 flex flex-wrap items-center gap-2.5">
+                <Button variant="hero" size="sm" asChild className="h-9 px-4 text-xs font-semibold shadow-elegant">
+                  <a href={WHATSAPP} target="_blank" rel="noreferrer">
+                    <WhatsAppIcon className="size-3.5" /> WhatsApp Us
+                  </a>
+                </Button>
+                <Button
+                  variant="ghostLight"
+                  size="sm"
+                  asChild
+                  className="h-9 px-4 text-xs font-semibold border border-white/40 bg-black/30 text-white hover:bg-white/20 hover:text-white backdrop-blur-md"
+                >
+                  <a href="#contact">Book Service</a>
+                </Button>
+              </div>
             </div>
           </Reveal>
         </div>
