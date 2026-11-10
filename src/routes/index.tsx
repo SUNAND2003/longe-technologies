@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ApplyDialog, POSITIONS } from "@/components/site/ApplyDialog";
 import { JobDetailsDialog } from "@/components/site/JobDetailsDialog";
+import { BrandMarquee } from "@/components/site/BrandMarquee";
 import { sendEnquiryEmail, EMAILJS_CONFIG } from "@/lib/emailjs";
 import heroImg from "@/assets/hero-repair.jpg";
 import aboutImg from "@/assets/about-workshop.jpg";
@@ -111,70 +112,60 @@ const SERVICES = [
     title: "Laptop & Desktop Sales & Service",
     desc: "Brand new system sales, custom PC builds, and complete diagnosis and repair for all brands.",
     badge: "Sales & Service",
-    image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: Cpu,
     title: "Laptop Chip Level Service",
     desc: "Advanced motherboard BGA rework, micro-soldering, short-circuit troubleshooting & power IC fixes.",
     badge: "Chip Level",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: ShoppingBag,
     title: "Used Laptop Sales",
     desc: "Fully tested, high-quality certified pre-owned laptops with warranty support at great prices.",
     badge: "Certified Pre-Owned",
-    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: Printer,
     title: "Printer Sales & Service",
     desc: "LaserJet, Inkjet, and thermal printer repair, cartridge toner refilling, printhead service & new sales.",
     badge: "Printers",
-    image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: Cctv,
     title: "CCTV Installation & Service",
     desc: "End-to-end security camera setup, DVR/NVR configuration, mobile live-view, cabling & maintenance.",
     badge: "Surveillance",
-    image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: DatabaseBackup,
     title: "Data Recovery",
     desc: "Safe data extraction and restoration from failed hard disks, SSDs, formatted drives & corrupt OS.",
     badge: "Data Care",
-    image: "https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: ShieldCheck,
     title: "Multi-Brand Warranty Support",
     desc: "Authorized-grade repairs and warranty assistance for HP, Dell, Lenovo, Asus, Acer, Apple & more.",
     badge: "Warranty Support",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: FileCheck2,
     title: "AMC (Annual Maintenance Contract)",
     desc: "Proactive IT maintenance, regular servicing, and prioritized breakdown support for offices and homes.",
     badge: "AMC Contracts",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: AppWindow,
     title: "Software Installation",
     desc: "Genuine OS setup (Windows/macOS/Linux), drivers, antivirus security, and specialized software setup.",
     badge: "Software & OS",
-    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: Truck,
     title: "Onsite Desktop & Laptop Service",
     desc: "Doorstep service engineer visits to your residence or office for immediate diagnosis and on-the-spot repair.",
     badge: "Doorstep Onsite",
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=600&q=80",
   },
 ] as const;
 
@@ -417,37 +408,7 @@ function ScrollToTop() {
   );
 }
 
-const BRANDS = [
-  "Apple MacBook", "Dell & Alienware", "HP Pavilion & Omen", "Lenovo & ThinkPad",
-  "ASUS ROG & TUF", "Acer Predator", "MSI Gaming", "Samsung Galaxy Book",
-  "Microsoft Surface", "Intel & AMD Systems", "Custom Gaming PC", "Toshiba Dynabook",
-];
 
-function BrandMarquee() {
-  return (
-    <div className="relative overflow-hidden border-y border-border/70 bg-secondary/50 py-4.5 backdrop-blur-sm">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-secondary to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-secondary to-transparent" />
-      <div className="flex w-max items-center overflow-hidden">
-        <motion.div
-          className="flex shrink-0 items-center gap-10 pr-10"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ ease: "linear", duration: 32, repeat: Infinity }}
-        >
-          {[...BRANDS, ...BRANDS].map((brand, i) => (
-            <div
-              key={`${brand}-${i}`}
-              className="flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-navy/70 transition-colors hover:text-primary sm:text-sm"
-            >
-              <span className="size-2 rounded-full bg-primary/75 ring-2 ring-primary/20" />
-              <span>{brand}</span>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </div>
-  );
-}
 
 function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -622,7 +583,7 @@ function Navbar() {
                 </a>
               </li>
               <li className="pt-2 text-[11px] text-muted-foreground text-center">
-                <span>Service Centers: Kozhikode (HQ) • Kannur • Trivandrum</span>
+                <span>Service Centers: Kozhikode • Kannur • Trivandrum</span>
               </li>
             </ul>
           </motion.div>
@@ -670,7 +631,7 @@ function Hero() {
           <motion.div variants={fade}>
             <span className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-background/95 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-navy shadow-soft backdrop-blur-md">
               <span className="size-2 animate-pulse rounded-full bg-success" />
-              <span>Service Centers in Kerala: Kozhikode (HQ) • Kannur • Trivandrum</span>
+              <span>Service Centers in Kerala: Kozhikode • Kannur • Trivandrum</span>
             </span>
           </motion.div>
 
@@ -869,41 +830,27 @@ function Services() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
               whileHover={{ y: -8 }}
-              className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border bg-card transition-all duration-300 hover:shadow-card-hover"
+              className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border bg-card p-7 transition-shadow duration-300 hover:shadow-card-hover"
             >
-              {/* Service Photo Banner - 100% visible, sharp & vibrant */}
-              <div className="relative h-44 w-full overflow-hidden bg-muted">
-                <img
-                  src={s.image}
-                  alt={s.title}
-                  loading="lazy"
-                  width={600}
-                  height={400}
-                  className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                <span className="absolute top-3 right-3 rounded-full bg-navy/85 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm border border-white/10">
-                  {s.badge}
-                </span>
-              </div>
-
-              {/* Service Details Body */}
-              <div className="flex flex-1 flex-col justify-between p-6">
-                <div>
-                  <h3 className="text-lg font-bold text-navy leading-snug group-hover:text-primary transition-colors">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {s.desc}
-                  </p>
+              <div className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-primary transition-transform duration-500 group-hover:scale-x-100" />
+              <div>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="grid size-14 place-items-center rounded-2xl bg-accent text-primary transition-all duration-300 group-hover:bg-gradient-primary group-hover:text-primary-foreground group-hover:shadow-elegant">
+                    <s.icon className="size-7" />
+                  </span>
+                  <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-navy/70">
+                    {s.badge}
+                  </span>
                 </div>
-                <a
-                  href="#contact"
-                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-primary opacity-85 transition-all group-hover:gap-2.5 group-hover:opacity-100"
-                >
-                  Inquire now <ArrowRight className="size-4" />
-                </a>
+                <h3 className="mt-5 text-lg font-bold text-navy leading-snug">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
               </div>
+              <a
+                href="#contact"
+                className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-primary opacity-85 transition-all group-hover:gap-2.5 group-hover:opacity-100"
+              >
+                Inquire now <ArrowRight className="size-4" />
+              </a>
             </motion.div>
           ))}
           <Reveal className="group relative overflow-hidden rounded-3xl sm:col-span-2 lg:col-span-2 xl:col-span-2 shadow-card-hover border border-white/10 flex flex-col justify-between h-full min-h-[340px]">
