@@ -68,6 +68,7 @@ const BRANCHES = [
     mapQuery: "Kanakassery Building, Mini Bypass Rd, Mankave, Kozhikode, Kerala 673007",
     directionsUrl: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Door No: 35/2458/D Kanakassery Building Near Lulu Mall Mini Bypass Rd Mankave Kozhikode Kerala 673007"),
     whatsappUrl: "https://wa.me/917558916777?text=" + encodeURIComponent("Hi Longe Technologies (Kozhikode Head Office), I need service support."),
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3913.0640321306357!2d75.80261137482276!3d11.238600051833722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba6594246835a51%3A0x6338e552089279db!2sMankavu%2C%20Kozhikode%2C%20Kerala!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin",
   },
   {
     id: "kannur",
@@ -83,6 +84,7 @@ const BRANCHES = [
     mapQuery: "Delta Tower, Thana, Kannur, Kerala 670012",
     directionsUrl: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Delta Tower Thana Kannur 670012"),
     whatsappUrl: "https://wa.me/917025916777?text=" + encodeURIComponent("Hi Longe Technologies (Kannur Branch), I need service support."),
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3904.382006764516!2d75.36821137483324!3d11.874500051728224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba422c544e3d3f9%3A0x4a76296317b9b1b5!2sThana%2C%20Kannur%2C%20Kerala!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin",
   },
   {
     id: "trivandrum",
@@ -98,6 +100,7 @@ const BRANCHES = [
     mapQuery: "KBN Tower Kaimanam Pappanamcode Thiruvananthapuram Kerala 695040",
     directionsUrl: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("KBN Tower Kaimanam Pappanamcode Thiruvananthapuram Kerala 695040"),
     whatsappUrl: "https://wa.me/917510916777?text=" + encodeURIComponent("Hi Longe Technologies (Trivandrum Branch), I need service support."),
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3946.425893412586!2d76.97221137478225!3d8.473500051934272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05baf45b367d23%3A0x4b7852c906a2b89d!2sKaimanam%2C%20Pappanamcode%2C%20Thiruvananthapuram%2C%20Kerala!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin",
   },
 ] as const;
 
@@ -1593,14 +1596,26 @@ function Contact() {
                 </div>
               </div>
 
-              <div className="lg:col-span-2 overflow-hidden rounded-2xl border bg-muted h-80 sm:h-96 shadow-inner relative">
+              <div className="lg:col-span-2 overflow-hidden rounded-2xl border bg-muted h-80 sm:h-96 shadow-inner relative group">
                 <iframe
+                  key={currentMap.id}
                   title={`Google Map - ${currentMap.city}`}
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(currentMap.mapQuery)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                  src={currentMap.embedUrl}
                   className="h-full w-full border-0"
                   loading="lazy"
                   allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
                 />
+                <a
+                  href={currentMap.directionsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-background/95 px-3 py-1.5 text-xs font-bold text-navy shadow-soft backdrop-blur-md transition-all hover:bg-primary hover:text-primary-foreground hover:scale-105"
+                >
+                  <MapPin className="size-3.5 text-primary" />
+                  <span>Open in Google Maps</span>
+                  <ExternalLink className="size-3" />
+                </a>
               </div>
             </div>
           </div>
